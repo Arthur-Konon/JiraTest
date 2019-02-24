@@ -4,32 +4,31 @@ import org.testng.annotations.Test;
 import pages.DashboardPage;
 import pages.LoginPage;
 
-import java.util.concurrent.TimeUnit;
-
-
-public class LoginTest {
+public class LogOutTest {
 
     @BeforeMethod
     public void beforeMethod() {
-        utils.ChromeDriver.initWebDriver();
-        utils.ChromeDriver.getChromeDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        LoginTest loginTest = new LoginTest();
+        loginTest.beforeMethod();
+        loginTest.main();
     }
 
     @Test
     public void main() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.navigate();
-        loginPage.inputLogin();
-        loginPage.inputPassword();
-        loginPage.submit();
-
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.findElement(dashboardPage.getLogOutLinkPath());
+
+        dashboardPage.clickElement("//*[@id=\"header-details-user-fullname\"]");
+        dashboardPage.clickLogOut();
+
+
+        LoginPage loginPage = new LoginPage();
+        loginPage.findElement(loginPage.getLoginLinkXpath());
+
     }
 
     @AfterMethod
     public void afterMethod() {
         utils.ChromeDriver.closeChromeDriver();
     }
-
 }

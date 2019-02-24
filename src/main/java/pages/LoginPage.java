@@ -1,26 +1,38 @@
 package pages;
 
 
+import utils.JiraProperties;
 
 public class LoginPage extends Page {
 
-    private final String PAGE_URL = super.getPageTitle() + "/login.jsp?os_destination=%2Fprojects%2FQAAUT7%2Fissues%2FQAAUT7-17%3Ffilter%3Dallopenissues";
+    private final String PAGE_URL = super.PAGE_URL + "/secure/Dashboard.jspa";
     private String PageTitle = "System Dashboard - Hillel IT School JIRA";
     private String LoginFieldXPath = "//*[@id=\"login-form-username\"]" ;
     private String PasswordFieldXPath = "//*[@id=\"login-form-password\"]";
     private String SubmitButtonXPath = "//*[@id=\"login\"]";
+    private String LoginLinkXpath = "//*[@id=\"user-options\"]/a";
 
-
-
-    public String getLoginFieldXPath() {
-        return LoginFieldXPath;
+    public String getPageTitle() {
+        return PageTitle;
     }
 
-    public String getPasswordFieldXPath() {
-        return PasswordFieldXPath;
+    public void inputLogin() {
+        super.inputValueIntoField(LoginFieldXPath, JiraProperties.getUserLogin());
+    }
+
+    public void inputPassword() {
+        super.inputValueIntoField(PasswordFieldXPath, JiraProperties.getUserPassword());
+    }
+
+    public void submit() {
+        super.clickElement(SubmitButtonXPath);
     }
 
     public String getSubmitButtonXPath() {
         return SubmitButtonXPath;
+    }
+
+    public String getLoginLinkXpath() {
+        return LoginLinkXpath;
     }
 }

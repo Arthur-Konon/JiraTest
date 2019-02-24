@@ -7,16 +7,15 @@ import utils.JiraProperties;
 
 public abstract class Page {
 
-    private static final String PAGE_URL = JiraProperties.getJiraURL();
-    private String PageTitle = "System Dashboard - Hillel IT School JIRA";
-    private WebDriver driver = ChromeDriver.initWebDriver();
+    protected final String PAGE_URL = JiraProperties.getJiraURL();
+    private WebDriver driver = ChromeDriver.getChromeDriver();
 
-    public String getPageTitle() {
-        return PageTitle;
+    public String getActualPageTitle() {
+        return driver.getTitle();
     }
 
     public void navigate(){
-        driver.get(PAGE_URL);
+        driver.get(this.PAGE_URL);
     }
 
     public void closeChromeDriver(){
@@ -29,4 +28,10 @@ public abstract class Page {
     public void clickElement (String xPath){
         driver.findElement(By.xpath(xPath)).click();
     }
+
+    public void findElement(String xpath) {
+        driver.findElement(By.xpath(xpath));
+    }
 }
+
+
